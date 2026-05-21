@@ -1,6 +1,8 @@
 package ru.itmo.tpo.lab3.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -35,7 +37,12 @@ public class MainPage {
 
     public MainPage openPath(String path) {
         String url = path.startsWith("http") ? path : baseUrl + path;
-        driver.get(url);
+        try {
+            driver.get(url);
+        } catch (TimeoutException ex) {
+            // Firefox иногда не завершает load из-за фоновых запросов — останавливаем и ждём DOM
+            ((JavascriptExecutor) driver).executeScript("window.stop();");
+        }
         return this;
     }
 
@@ -102,8 +109,25 @@ public class MainPage {
                 "//a[contains(@href,'/mag/novosti/') and string-length(@href) > string-length('/mag/novosti/')][1]"));
     }
 
-    public void clickFirstForecastDetails() {
-        DriverSupport.click(driver, DriverSupport.xpath(XPathLocators.FORECAST_MORE_LINK));
+    public void waitForecastsPageLoaded() {
+        DriverSupport.wait(driver).until(d ->
+                !d.findElements(DriverSupport.xpath(XPathLocators.FORECAST_PAGE_HEADING)).isEmpty()
+                        || !d.findElements(DriverSupport.xpath(XPathLocators.FORECAST_ARTICLE_LINK)).isEmpty());
+    }
+
+    public void openFirstForecastArticle() {
+        By article = DriverSupport.xpath(XPathLocators.FORECAST_ARTICLE_LINK);
+        WebElement link = DriverSupport.waitVisible(driver, article);
+        String href = link.getAttribute("href");
+        if (href != null && !href.isBlank()) {
+            openPath(href);
+        } else {
+            DriverSupport.click(driver, article);
+        }
+        DriverSupport.wait(driver).until(d -> {
+            String url = d.getCurrentUrl();
+            return url.contains("/prognozy/") && !url.endsWith("/football/") && !url.endsWith("/football");
+        });
     }
 
     public void searchEncyclopedia(String query) {

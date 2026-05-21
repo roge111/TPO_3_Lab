@@ -41,8 +41,12 @@ public final class XPathLocators {
             "//*[contains(translate(., 'ФРИБЕТ', 'фрибет'), 'фрибет')]";
     public static final String GET_FREEBET_BUTTON =
             "//*[contains(normalize-space(),'Получить фрибет')]";
+    public static final String FORECAST_PAGE_HEADING =
+            "//h1[contains(.,'Прогноз')]";
+    public static final String FORECAST_ARTICLE_LINK =
+            "(//a[contains(@href,'/prognozy/') and contains(@href,'prognoz')])[1]";
     public static final String FORECAST_MORE_LINK =
-            "//a[contains(.,'Подробнее')][1]";
+            "(//a[contains(@href,'/prognozy/') and contains(.,'Подробнее')])[1]";
     public static final String ENCYCLOPEDIA_SEARCH_INPUT =
             "//input[contains(@placeholder,'найти') or contains(@placeholder,'Найти')]";
     public static final String ENCYCLOPEDIA_SEARCH_FALLBACK =

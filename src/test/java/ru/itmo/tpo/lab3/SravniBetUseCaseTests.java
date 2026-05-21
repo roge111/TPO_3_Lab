@@ -274,7 +274,8 @@ class SravniBetUseCaseTests {
     void ts17_readForecasts(Browser browser) {
         run(browser, mainPage -> {
             mainPage.openPath("/prognozy/football/");
-            mainPage.clickFirstForecastDetails();
+            mainPage.waitForecastsPageLoaded();
+            mainPage.openFirstForecastArticle();
             assertTrue(mainPage.currentUrl().contains("/prognozy/"));
             assertTrue(mainPage.pageSource().length() > 500);
         });

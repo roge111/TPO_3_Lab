@@ -1,6 +1,7 @@
 package ru.itmo.tpo.lab3.support;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -21,6 +22,7 @@ public final class WebDriverFactory {
                 WebDriverManager.firefoxdriver().setup();
                 FirefoxOptions options = new FirefoxOptions();
                 options.addArguments("-width=1536", "-height=798");
+                options.setPageLoadStrategy(PageLoadStrategy.EAGER);
                 driver = new FirefoxDriver(options);
             }
             case CHROME -> {
@@ -28,6 +30,7 @@ public final class WebDriverFactory {
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--window-size=1536,798");
                 options.addArguments("--disable-search-engine-choice-screen");
+                options.setPageLoadStrategy(PageLoadStrategy.EAGER);
                 driver = new ChromeDriver(options);
             }
             default -> throw new IllegalArgumentException("Unknown browser: " + browser);
