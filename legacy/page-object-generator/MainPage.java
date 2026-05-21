@@ -1,4 +1,4 @@
-import java.util.List;
+﻿import java.util.List;
 import java.util.Map;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
@@ -469,7 +469,7 @@ public class MainPage {
     @CacheLookup
     private WebElement live;
 
-    private final String pageLoadedText = "Телефон: + 7 926 321 02 88";
+    private final String pageLoadedText = "╨в╨╡╨╗╨╡╤Д╨╛╨╜: + 7 926 321 02 88";
 
     private final String pageUrl = "/";
 

@@ -203,6 +203,41 @@ WebElement tab = wait.until(ExpectedConditions.elementToBeClickable(
 tab.click();
 ```
 
+### Структура проекта
+
+```
+TPO_3_Lab/
+├── build.gradle
+├── legacy/                              # исходники для отчёта (не в сборке)
+│   ├── selenium-ide/UntitledTest.java   # экспорт Selenium IDE
+│   ├── page-object-generator/MainPage.java
+│   └── README.md                        # таблица «было → стало»
+├── src/test/java/ru/itmo/tpo/lab3/      # финальная доработанная версия
+│   ├── SravniBetUseCaseTests.java       # TS-01 … TS-19
+│   ├── pages/MainPage.java              # Page Object на XPath
+│   └── support/                         # WebDriver, локаторы, ожидания
+```
+
+Для преподавателя: в `legacy/` — что получено из **Selenium IDE** и **Page Object Generator**; в `src/test/` — что доработано под требования лабы (XPath, 19 прецедентов, Chrome/Firefox, assert).
+
+### Запуск тестов (Gradle)
+
+```bash
+# Все прецеденты, Chrome + Firefox (38 прогонов)
+./gradlew test
+
+# Только Chrome
+./gradlew test -Dbrowser=chrome
+
+# Только Firefox
+./gradlew test -Dbrowser=firefox
+
+# Один сценарий
+./gradlew test -Dbrowser=chrome --tests "*ts07*"
+```
+
+Требуется JDK 17+ и установленные Chrome / Firefox.
+
 ---
 
 ## Выводы
