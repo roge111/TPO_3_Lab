@@ -11,7 +11,7 @@
 
 См. каталог `src/test/java/ru/itmo/tpo/lab3/`:
 
-- `SravniBetUseCaseTests.java` — 19 сценариев TS-01 … TS-19 (на основе прецедентов из README)
+- `SravniBetUseCaseTests.java` — 17 сценариев TS-01 … TS-17 (на основе прецедентов из README)
 - `pages/MainPage.java` — переработанный Page Object с XPath
 - `support/` — WebDriver, локаторы, ожидания
 
@@ -25,5 +25,5 @@
 | Page Object | — | ✅ (черновик) | ✅ `pages/MainPage.java` |
 | XPath | ❌ CSS | ❌ CSS | ✅ |
 | Chrome + Firefox | ❌ | — | ✅ `@EnumSource` |
-| 19 прецедентов | ❌ 1 тест | ❌ не подключён | ✅ TS-01 … TS-19 |
+| 17 прецедентов | ❌ 1 тест | ❌ не подключён | ✅ TS-01 … TS-17 |
 | Assert + WebDriverWait | ❌ | ❌ | ✅ |

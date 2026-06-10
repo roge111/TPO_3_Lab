@@ -30,6 +30,7 @@ public final class WebDriverFactory {
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--window-size=1536,798");
                 options.addArguments("--disable-search-engine-choice-screen");
+                options.addArguments("--disable-popup-blocking");
                 options.setPageLoadStrategy(PageLoadStrategy.EAGER);
                 driver = new ChromeDriver(options);
             }

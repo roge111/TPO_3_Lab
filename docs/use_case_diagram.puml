@@ -1,108 +1,100 @@
-@startuml
-' Use Case Diagram для сайта ставок и статистики
-' Актёр: Гость (неавторизованный пользователь)
-
-skinparam packageStyle rectangle
-skinparam usecaseFontSize 11
-skinparam defaultFontName Arial
-
-' Горизонтальное расположение Use Case внутри групп
-left to right direction
-
-actor "Гость" as Guest
-
-rectangle "Веб-сайт" {
-
-  ' ====== Главная страница и навигация ======
-  package "Главная страница" {
-    usecase "UC-01\nОткрытие главной\nстраницы" as UC01
-    usecase "UC-02\nВыбор вида спорта\n(Футбол/Теннис/Хоккей/MMA)" as UC02
-    usecase "UC-03\nФильтр по дате\n(Сегодня/Завтра/Live)" as UC03
-    usecase "UC-04\nПросмотр списка\nматчей" as UC04
-    UC01 -[hidden]right- UC02
-    UC02 -[hidden]right- UC03
-    UC03 -[hidden]right- UC04
-  }
-
-  ' ====== Матчи и статистика ======
-  package "Матчи" {
-    usecase "UC-05\nВыбор матча\n→ /stat/futbol/{id}/" as UC05
-    usecase "UC-06\nСравнение\nкоэффициентов БК" as UC06
-    usecase "UC-07\nПереход к букмекеру\n(новая вкладка)" as UC07
-    usecase "UC-11\nСтатистика матча\n(состав, H2H, события)" as UC11
-    UC05 -[hidden]right- UC06
-    UC06 -[hidden]right- UC07
-    UC07 -[hidden]right- UC11
-  }
-
-  ' ====== Матч-центр и турниры ======
-  package "Матч-центр" {
-    usecase "UC-08\nМатч-центр\n/stat/football/" as UC08
-    usecase "UC-09\nВыбор дня\n(Вчера/Сегодня/Завтра)" as UC09
-    usecase "UC-10\nСтраница турнира\n(календарь, таблица)" as UC10
-    UC08 -[hidden]right- UC09
-    UC09 -[hidden]right- UC10
-  }
-
-  ' ====== Букмекеры и бонусы ======
-  package "Букмекеры и бонусы" {
-    usecase "UC-12\nРейтинг букмекеров\n/bukmekery/luchshie/" as UC12
-    usecase "UC-13\nОбзор букмекера\n(например /fonbet/)" as UC13
-    usecase "UC-14\nСравнение бонусов\n(фрибеты, подборки)" as UC14
-    usecase "UC-15\nПолучить фрибет\n(партнёрская ссылка)" as UC15
-    UC12 -[hidden]right- UC13
-    UC13 -[hidden]right- UC14
-    UC14 -[hidden]right- UC15
-  }
-
-  ' ====== Контент ======
-  package "Контент" {
-    usecase "UC-16\nНовости спорта\n/mag/novosti/" as UC16
-    usecase "UC-17\nПрогнозы на матчи\n/prognozy/football/" as UC17
-    usecase "UC-18\nПоиск в энциклопедии\n(например «тотал»)" as UC18
-    usecase "UC-19\nПросмотр статьи\nэнциклопедии" as UC19
-    UC16 -[hidden]right- UC17
-    UC17 -[hidden]right- UC18
-    UC18 -[hidden]right- UC19
-  }
-
-  ' ====== Связи актёра с Use Case ======
-  Guest --> UC01
-  Guest --> UC02
-  Guest --> UC03
-  Guest --> UC04
-  Guest --> UC05
-  Guest --> UC06
-  Guest --> UC07
-  Guest --> UC08
-  Guest --> UC09
-  Guest --> UC10
-  Guest --> UC11
-  Guest --> UC12
-  Guest --> UC13
-  Guest --> UC14
-  Guest --> UC15
-  Guest --> UC16
-  Guest --> UC17
-  Guest --> UC18
-  Guest --> UC19
-
-  ' ====== Отношения extends ======
-  UC02 .> UC01 : extends
-  UC03 .> UC01 : extends
-  UC04 .> UC02 : extends
-  UC05 .> UC04 : extends
-  UC06 .> UC05 : extends
-  UC07 .> UC06 : extends
-  UC11 .> UC05 : extends
-  UC09 .> UC08 : extends
-  UC10 .> UC08 : extends
-  UC10 .> UC04 : extends
-  UC13 .> UC12 : extends
-  UC15 .> UC14 : extends
-  UC15 .> UC13 : extends
-  UC19 .> UC18 : extends
-
-}
-
-@enduml
+@startuml
+' Use Case Diagram для сайта ставок и статистики
+' Актёр: Гость (неавторизованный пользователь)
+
+skinparam packageStyle rectangle
+skinparam usecaseFontSize 11
+skinparam defaultFontName Arial
+
+' Горизонтальное расположение Use Case внутри групп
+left to right direction
+
+actor "Гость" as Guest
+
+rectangle "Веб-сайт" {
+
+  ' ====== Главная страница и навигация ======
+  package "Главная страница" {
+    usecase "UC-01\nОткрытие главной\nстраницы" as UC01
+    usecase "UC-02\nМатч-центр и вид спорта\n(Все матчи → /stat/football/,\nтеннис/хоккей/MMA)" as UC02
+    usecase "UC-03\nФильтр по дате\n(Вчера/Завтра/календарь)" as UC03
+    usecase "UC-04\nПросмотр списка\nматчей" as UC04
+    UC01 -[hidden]right- UC02
+    UC02 -[hidden]right- UC03
+    UC03 -[hidden]right- UC04
+  }
+
+  ' ====== Матчи и статистика ======
+  package "Матчи" {
+    usecase "UC-05\nВыбор матча\n→ /stat/futbol/{id}/" as UC05
+    usecase "UC-06\nСравнение\nкоэффициентов БК" as UC06
+    usecase "UC-07\nПереход к букмекеру\n(новая вкладка)" as UC07
+    usecase "UC-09\nСтатистика матча\n(состав, H2H, события)" as UC09
+    UC05 -[hidden]right- UC06
+    UC06 -[hidden]right- UC07
+    UC07 -[hidden]right- UC09
+  }
+
+  ' ====== Турниры ======
+  package "Турниры" {
+    usecase "UC-08\nСтраница турнира\n(календарь, таблица)" as UC08
+  }
+
+  ' ====== Букмекеры и бонусы ======
+  package "Букмекеры и бонусы" {
+    usecase "UC-10\nРейтинг букмекеров\n/bukmekery/luchshie/" as UC10
+    usecase "UC-11\nОбзор букмекера\n(например /fonbet/)" as UC11
+    usecase "UC-12\nСравнение бонусов\n(фрибеты, подборки)" as UC12
+    usecase "UC-13\nПолучить фрибет\n(партнёрская ссылка)" as UC13
+    UC10 -[hidden]right- UC11
+    UC11 -[hidden]right- UC12
+    UC12 -[hidden]right- UC13
+  }
+
+  ' ====== Контент ======
+  package "Контент" {
+    usecase "UC-14\nНовости спорта\n/mag/novosti/" as UC14
+    usecase "UC-15\nПрогнозы на матчи\n/prognozy/football/" as UC15
+    usecase "UC-16\nПоиск в энциклопедии\n(например «тотал»)" as UC16
+    usecase "UC-17\nПросмотр статьи\nэнциклопедии" as UC17
+    UC14 -[hidden]right- UC15
+    UC15 -[hidden]right- UC16
+    UC16 -[hidden]right- UC17
+  }
+
+  ' ====== Связи актёра с Use Case ======
+  Guest --> UC01
+  Guest --> UC02
+  Guest --> UC03
+  Guest --> UC04
+  Guest --> UC05
+  Guest --> UC06
+  Guest --> UC07
+  Guest --> UC08
+  Guest --> UC09
+  Guest --> UC10
+  Guest --> UC11
+  Guest --> UC12
+  Guest --> UC13
+  Guest --> UC14
+  Guest --> UC15
+  Guest --> UC16
+  Guest --> UC17
+
+  ' ====== Отношения extends ======
+  UC02 .> UC01 : extends
+  UC03 .> UC02 : extends
+  UC04 .> UC02 : extends
+  UC05 .> UC04 : extends
+  UC06 .> UC05 : extends
+  UC07 .> UC06 : extends
+  UC09 .> UC05 : extends
+  UC08 .> UC04 : extends
+  UC11 .> UC10 : extends
+  UC13 .> UC12 : extends
+  UC13 .> UC11 : extends
+  UC17 .> UC16 : extends
+
+}
+
+@enduml

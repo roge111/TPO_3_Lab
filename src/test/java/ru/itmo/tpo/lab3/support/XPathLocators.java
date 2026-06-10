@@ -13,20 +13,41 @@ public final class XPathLocators {
             "//button[contains(@class,'betCard')]";
     public static final String BET_CARD_FIRST =
             "(" + BET_CARD + ")[1]";
+    /** Как в записи Selenium IDE: 3-я карточка исхода в строке матча */
+    public static final String BET_CARD_THIRD =
+            "(" + BET_CARD + ")[3]";
+    public static final String BET_CARD_THIRD_TITLE =
+            BET_CARD_THIRD + "//*[contains(@class,'betCardTitle')]";
+    public static final String ALL_MATCHES_BUTTON =
+            "//a[contains(@href,'/stat/football/')]//*[normalize-space()='Все матчи' or normalize-space()='все матчи']";
     public static final String SPORT_TAB =
             "//*[self::button or self::a or self::div][contains(translate(normalize-space(.), 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ', 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'), '%s')]";
-    public static final String DATE_TAG =
-            "//span[@data-qa='Tag']";
-    public static final String DATE_TAG_N =
-            "(" + DATE_TAG + ")[%d]";
+    public static final String SPORT_TAB_LINK =
+            "//a[contains(@href,'/stat/%s/')]";
+    public static final String MATCH_CENTER_DATE_BAR =
+            "//button[contains(@class,'calendarButton')]/ancestor::div[contains(@class,'container')][1]";
+    public static final String MATCH_CENTER_YESTERDAY =
+            MATCH_CENTER_DATE_BAR + "//button[contains(@class,'dateTag') and contains(.,'Вчера')]";
+    public static final String MATCH_CENTER_TODAY =
+            MATCH_CENTER_DATE_BAR + "//button[contains(@class,'dateTag') and contains(.,'Сегодня')]";
+    public static final String MATCH_CENTER_TOMORROW =
+            MATCH_CENTER_DATE_BAR + "//button[contains(@class,'dateTag') and contains(.,'Завтра')]";
+    public static final String MATCH_CENTER_TODAY_SELECTED =
+            MATCH_CENTER_DATE_BAR + "//button[contains(@class,'dateTagSelected')]";
+    public static final String MATCH_CENTER_CALENDAR_BUTTON =
+            "//button[contains(@class,'calendarButton')]";
+    public static final String MATCH_CENTER_CALENDAR =
+            "//div[@data-qa='Calendar']";
     public static final String MATCH_LINK =
             "//a[contains(@href,'/stat/futbol/')]";
     public static final String MATCH_LINK_FIRST =
             "(" + MATCH_LINK + ")[1]";
     public static final String MATCH_CENTER_HEADING =
             "//h1[contains(translate(., 'ФУТБОЛ', 'футбол'), 'футбол')]";
-    public static final String FILTER_TOMORROW =
-            "//*[contains(normalize-space(),'Завтра')]";
+    public static final String MATCH_CENTER_ACCORDION =
+            "//div[@data-qa='Accordion']";
+    /** @deprecated используйте {@link #MATCH_CENTER_TOMORROW} */
+    public static final String FILTER_TOMORROW = MATCH_CENTER_TOMORROW;
     public static final String TOURNAMENT_HEADING =
             "//h1[contains(translate(., 'ТОВАРИЩЕСК', 'товарищеск'), 'товарищеск')]";
     public static final String MATCH_H2H =
@@ -65,7 +86,18 @@ public final class XPathLocators {
         return String.format(SPORT_TAB, sportNameLower);
     }
 
-    public static String dateTag(int index) {
-        return String.format(DATE_TAG_N, index);
+    public static String sportTabLink(String sportSlug) {
+        return String.format(SPORT_TAB_LINK, sportSlug);
+    }
+
+    public static final String CALENDAR_DAY_CELL =
+            "//div[@data-qa='Calendar']//div[@data-date]";
+
+    public static String calendarDayByDate(String isoDate) {
+        return "//div[@data-qa='Calendar']//div[@data-date='" + isoDate + "']";
+    }
+
+    public static String calendarDayOtherThan(String isoDate) {
+        return "//div[@data-qa='Calendar']//div[@data-date and @data-date!='" + isoDate + "'][1]";
     }
 }
